@@ -1,0 +1,6 @@
+C:\Users\sravan\git\CampusWorks\admin-service\src\main\java\com\campusworks\admin\AdminServiceApplication.java
+C:\Users\sravan\git\CampusWorks\admin-service\src\main\java\com\campusworks\admin\config\SecurityConfig.java
+C:\Users\sravan\git\CampusWorks\admin-service\src\main\java\com\campusworks\admin\config\SimpleJwtFilter.java
+C:\Users\sravan\git\CampusWorks\admin-service\src\main\java\com\campusworks\admin\controller\AdminController.java
+C:\Users\sravan\git\CampusWorks\admin-service\src\main\java\com\campusworks\admin\model\Dispute.java
+C:\Users\sravan\git\CampusWorks\admin-service\src\main\java\com\campusworks\admin\repo\DisputeRepository.java
