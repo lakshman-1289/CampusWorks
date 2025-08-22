@@ -1,0 +1,31 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/authdb?createDatabaseIfNotExist=true}
+    username: ${DB_USER:root}
+    password: ${DB_PASS:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:CHANGE_ME_SECRET}
+    expMinutes: 120
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

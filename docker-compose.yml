@@ -1,0 +1,151 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  eureka-server:
+    build: ./eureka-server
+    image: campusworks/eureka-server:latest
+    ports:
+      - "8761:8761"
+    depends_on:
+      - mysql
+      - mongo
+
+  api-gateway:
+    build: ./api-gateway
+    image: campusworks/api-gateway:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - JDK_JAVA_OPTIONS=-Dspring.profiles.active=docker
+    depends_on:
+      - eureka-server
+
+  auth-service:
+    build: ./auth-service
+    image: campusworks/auth-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/authdb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+      - mysql
+
+  profile-service:
+    build: ./profile-service
+    image: campusworks/profile-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/profiledb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+
+  task-service:
+    build: ./task-service
+    image: campusworks/task-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/taskdb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+
+  bidding-service:
+    build: ./bidding-service
+    image: campusworks/bidding-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/biddingdb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+      - task-service
+
+  chat-service:
+    build: ./chat-service
+    image: campusworks/chat-service:latest
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/campuschat
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+      - mongo
+
+  payment-service:
+    build: ./payment-service
+    image: campusworks/payment-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/paymentdb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+      - task-service
+
+  notification-service:
+    build: ./notification-service
+    image: campusworks/notification-service:latest
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/campusnotify
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+      - mongo
+
+  review-service:
+    build: ./review-service
+    image: campusworks/review-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/reviewdb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+
+  admin-service:
+    build: ./admin-service
+    image: campusworks/admin-service:latest
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/admindb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USER=root
+      - DB_PASS=root
+      - JWT_SECRET=CHANGE_ME_SECRET
+      - EUREKA_URI=http://eureka-server:8761/eureka/
+    depends_on:
+      - auth-service
+
+volumes:
+  mysql_data: {}
+  mongo_data: {}
+
+
