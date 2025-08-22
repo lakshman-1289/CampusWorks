@@ -1,0 +1,21 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: chat-service
+  data:
+    mongodb:
+      uri: ${MONGO_URI:mongodb://localhost:27017/campuschat}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
