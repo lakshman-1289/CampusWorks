@@ -1,7 +1,8 @@
 package com.campusworks.notification.repo;
 
-import com.campusworks.notification.domain.Notification;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.campusworks.notification.model.Notification;
 
 import java.util.List;
 

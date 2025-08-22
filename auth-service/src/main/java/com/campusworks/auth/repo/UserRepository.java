@@ -1,7 +1,8 @@
 package com.campusworks.auth.repo;
 
-import com.campusworks.auth.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.campusworks.auth.model.User;
 
 import java.util.Optional;
 

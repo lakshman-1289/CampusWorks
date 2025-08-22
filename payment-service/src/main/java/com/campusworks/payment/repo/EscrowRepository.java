@@ -1,7 +1,8 @@
 package com.campusworks.payment.repo;
 
-import com.campusworks.payment.domain.Escrow;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.campusworks.payment.model.Escrow;
 
 import java.util.Optional;
 

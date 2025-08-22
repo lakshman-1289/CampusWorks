@@ -1,7 +1,8 @@
 package com.campusworks.bidding.repo;
 
-import com.campusworks.bidding.domain.Bid;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.campusworks.bidding.model.Bid;
 
 import java.util.List;
 

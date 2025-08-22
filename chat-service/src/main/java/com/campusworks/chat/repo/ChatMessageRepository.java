@@ -1,7 +1,8 @@
 package com.campusworks.chat.repo;
 
-import com.campusworks.chat.domain.ChatMessage;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.campusworks.chat.model.ChatMessage;
 
 import java.util.List;
 

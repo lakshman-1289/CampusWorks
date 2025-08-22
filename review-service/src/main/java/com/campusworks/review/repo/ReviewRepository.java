@@ -1,7 +1,8 @@
 package com.campusworks.review.repo;
 
-import com.campusworks.review.domain.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.campusworks.review.model.Review;
 
 import java.util.List;
 

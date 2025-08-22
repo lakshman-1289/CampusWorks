@@ -1,6 +1,6 @@
 package com.campusworks.auth.service;
 
-import com.campusworks.auth.domain.User;
+import com.campusworks.auth.model.User;
 import com.campusworks.auth.repo.UserRepository;
 import com.campusworks.auth.security.JwtService;
 import lombok.RequiredArgsConstructor;
